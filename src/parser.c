@@ -6,53 +6,62 @@
 #endif
 
 #define LANGUAGE_VERSION 13
-#define STATE_COUNT 14
-#define LARGE_STATE_COUNT 7
-#define SYMBOL_COUNT 11
+#define STATE_COUNT 19
+#define LARGE_STATE_COUNT 5
+#define SYMBOL_COUNT 14
 #define ALIAS_COUNT 0
-#define TOKEN_COUNT 4
+#define TOKEN_COUNT 5
 #define EXTERNAL_TOKEN_COUNT 0
 #define FIELD_COUNT 1
 #define MAX_ALIAS_SEQUENCE_LENGTH 4
-#define PRODUCTION_ID_COUNT 3
+#define PRODUCTION_ID_COUNT 4
 
 enum {
-  sym_node_name = 1,
+  sym__identifier = 1,
   anon_sym_LPAREN = 2,
   anon_sym_RPAREN = 3,
-  sym_query = 4,
-  sym_pattern = 5,
-  sym__pattern = 6,
-  sym_named_node = 7,
-  sym_child = 8,
-  aux_sym_query_repeat1 = 9,
-  aux_sym_named_node_repeat1 = 10,
+  anon_sym_COLON = 4,
+  sym_query = 5,
+  sym_pattern = 6,
+  sym__pattern = 7,
+  sym_named_node = 8,
+  sym_node_name = 9,
+  sym_child = 10,
+  sym_field_name = 11,
+  aux_sym_query_repeat1 = 12,
+  aux_sym_named_node_repeat1 = 13,
 };
 
 static const char *ts_symbol_names[] = {
   [ts_builtin_sym_end] = "end",
-  [sym_node_name] = "node_name",
+  [sym__identifier] = "_identifier",
   [anon_sym_LPAREN] = "(",
   [anon_sym_RPAREN] = ")",
+  [anon_sym_COLON] = ":",
   [sym_query] = "query",
   [sym_pattern] = "pattern",
   [sym__pattern] = "_pattern",
   [sym_named_node] = "named_node",
+  [sym_node_name] = "node_name",
   [sym_child] = "child",
+  [sym_field_name] = "field_name",
   [aux_sym_query_repeat1] = "query_repeat1",
   [aux_sym_named_node_repeat1] = "named_node_repeat1",
 };
 
 static TSSymbol ts_symbol_map[] = {
   [ts_builtin_sym_end] = ts_builtin_sym_end,
-  [sym_node_name] = sym_node_name,
+  [sym__identifier] = sym__identifier,
   [anon_sym_LPAREN] = anon_sym_LPAREN,
   [anon_sym_RPAREN] = anon_sym_RPAREN,
+  [anon_sym_COLON] = anon_sym_COLON,
   [sym_query] = sym_query,
   [sym_pattern] = sym_pattern,
   [sym__pattern] = sym__pattern,
   [sym_named_node] = sym_named_node,
+  [sym_node_name] = sym_node_name,
   [sym_child] = sym_child,
+  [sym_field_name] = sym_field_name,
   [aux_sym_query_repeat1] = aux_sym_query_repeat1,
   [aux_sym_named_node_repeat1] = aux_sym_named_node_repeat1,
 };
@@ -62,8 +71,8 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = true,
   },
-  [sym_node_name] = {
-    .visible = true,
+  [sym__identifier] = {
+    .visible = false,
     .named = true,
   },
   [anon_sym_LPAREN] = {
@@ -71,6 +80,10 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = false,
   },
   [anon_sym_RPAREN] = {
+    .visible = true,
+    .named = false,
+  },
+  [anon_sym_COLON] = {
     .visible = true,
     .named = false,
   },
@@ -90,7 +103,15 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
+  [sym_node_name] = {
+    .visible = true,
+    .named = true,
+  },
   [sym_child] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_field_name] = {
     .visible = true,
     .named = true,
   },
@@ -116,6 +137,7 @@ static const char *ts_field_names[] = {
 static const TSFieldMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
   [1] = {.index = 0, .length = 1},
   [2] = {.index = 1, .length = 1},
+  [3] = {.index = 2, .length = 1},
 };
 
 static const TSFieldMapEntry ts_field_map_entries[] = {
@@ -123,6 +145,8 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_pattern, 0, .inherited = true},
   [1] =
     {field_pattern, 0},
+  [2] =
+    {field_pattern, 2, .inherited = true},
 };
 
 static TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH] = {
@@ -141,6 +165,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (eof) ADVANCE(1);
       if (lookahead == '(') ADVANCE(3);
       if (lookahead == ')') ADVANCE(4);
+      if (lookahead == ':') ADVANCE(5);
       if (lookahead == '\t' ||
           lookahead == '\n' ||
           lookahead == '\r' ||
@@ -155,7 +180,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       ACCEPT_TOKEN(ts_builtin_sym_end);
       END_STATE();
     case 2:
-      ACCEPT_TOKEN(sym_node_name);
+      ACCEPT_TOKEN(sym__identifier);
       if (lookahead == '!' ||
           lookahead == '-' ||
           lookahead == '.' ||
@@ -170,6 +195,9 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 4:
       ACCEPT_TOKEN(anon_sym_RPAREN);
+      END_STATE();
+    case 5:
+      ACCEPT_TOKEN(anon_sym_COLON);
       END_STATE();
     default:
       return false;
@@ -203,127 +231,189 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [11] = {.lex_state = 0},
   [12] = {.lex_state = 0},
   [13] = {.lex_state = 0},
+  [14] = {.lex_state = 0},
+  [15] = {.lex_state = 0},
+  [16] = {.lex_state = 0},
+  [17] = {.lex_state = 0},
+  [18] = {.lex_state = 0},
 };
 
 static uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   [0] = {
     [ts_builtin_sym_end] = ACTIONS(1),
-    [sym_node_name] = ACTIONS(1),
+    [sym__identifier] = ACTIONS(1),
     [anon_sym_LPAREN] = ACTIONS(1),
     [anon_sym_RPAREN] = ACTIONS(1),
+    [anon_sym_COLON] = ACTIONS(1),
   },
   [1] = {
-    [sym_query] = STATE(13),
-    [sym_pattern] = STATE(2),
-    [sym__pattern] = STATE(10),
+    [sym_query] = STATE(16),
+    [sym_pattern] = STATE(5),
+    [sym__pattern] = STATE(15),
     [sym_named_node] = STATE(7),
-    [aux_sym_query_repeat1] = STATE(2),
+    [aux_sym_query_repeat1] = STATE(5),
     [ts_builtin_sym_end] = ACTIONS(3),
     [anon_sym_LPAREN] = ACTIONS(5),
   },
   [2] = {
-    [sym_pattern] = STATE(4),
-    [sym__pattern] = STATE(10),
+    [sym__pattern] = STATE(11),
     [sym_named_node] = STATE(7),
-    [aux_sym_query_repeat1] = STATE(4),
-    [ts_builtin_sym_end] = ACTIONS(7),
+    [sym_child] = STATE(3),
+    [sym_field_name] = STATE(18),
+    [aux_sym_named_node_repeat1] = STATE(3),
+    [sym__identifier] = ACTIONS(7),
     [anon_sym_LPAREN] = ACTIONS(5),
+    [anon_sym_RPAREN] = ACTIONS(9),
   },
   [3] = {
     [sym__pattern] = STATE(11),
     [sym_named_node] = STATE(7),
-    [sym_child] = STATE(5),
-    [aux_sym_named_node_repeat1] = STATE(5),
+    [sym_child] = STATE(4),
+    [sym_field_name] = STATE(18),
+    [aux_sym_named_node_repeat1] = STATE(4),
+    [sym__identifier] = ACTIONS(7),
     [anon_sym_LPAREN] = ACTIONS(5),
-    [anon_sym_RPAREN] = ACTIONS(9),
+    [anon_sym_RPAREN] = ACTIONS(11),
   },
   [4] = {
-    [sym_pattern] = STATE(4),
-    [sym__pattern] = STATE(10),
-    [sym_named_node] = STATE(7),
-    [aux_sym_query_repeat1] = STATE(4),
-    [ts_builtin_sym_end] = ACTIONS(11),
-    [anon_sym_LPAREN] = ACTIONS(13),
-  },
-  [5] = {
     [sym__pattern] = STATE(11),
     [sym_named_node] = STATE(7),
-    [sym_child] = STATE(6),
-    [aux_sym_named_node_repeat1] = STATE(6),
-    [anon_sym_LPAREN] = ACTIONS(5),
-    [anon_sym_RPAREN] = ACTIONS(16),
-  },
-  [6] = {
-    [sym__pattern] = STATE(11),
-    [sym_named_node] = STATE(7),
-    [sym_child] = STATE(6),
-    [aux_sym_named_node_repeat1] = STATE(6),
-    [anon_sym_LPAREN] = ACTIONS(18),
-    [anon_sym_RPAREN] = ACTIONS(21),
+    [sym_child] = STATE(4),
+    [sym_field_name] = STATE(18),
+    [aux_sym_named_node_repeat1] = STATE(4),
+    [sym__identifier] = ACTIONS(13),
+    [anon_sym_LPAREN] = ACTIONS(16),
+    [anon_sym_RPAREN] = ACTIONS(19),
   },
 };
 
 static uint16_t ts_small_parse_table[] = {
-  [0] = 1,
-    ACTIONS(23), 3,
+  [0] = 5,
+    ACTIONS(5), 1,
+      anon_sym_LPAREN,
+    ACTIONS(21), 1,
       ts_builtin_sym_end,
+    STATE(7), 1,
+      sym_named_node,
+    STATE(15), 1,
+      sym__pattern,
+    STATE(6), 2,
+      sym_pattern,
+      aux_sym_query_repeat1,
+  [17] = 5,
+    ACTIONS(23), 1,
+      ts_builtin_sym_end,
+    ACTIONS(25), 1,
+      anon_sym_LPAREN,
+    STATE(7), 1,
+      sym_named_node,
+    STATE(15), 1,
+      sym__pattern,
+    STATE(6), 2,
+      sym_pattern,
+      aux_sym_query_repeat1,
+  [34] = 1,
+    ACTIONS(28), 4,
+      ts_builtin_sym_end,
+      sym__identifier,
       anon_sym_LPAREN,
       anon_sym_RPAREN,
-  [6] = 1,
-    ACTIONS(25), 3,
+  [41] = 1,
+    ACTIONS(30), 4,
       ts_builtin_sym_end,
+      sym__identifier,
       anon_sym_LPAREN,
       anon_sym_RPAREN,
-  [12] = 1,
-    ACTIONS(27), 3,
+  [48] = 1,
+    ACTIONS(32), 4,
       ts_builtin_sym_end,
+      sym__identifier,
       anon_sym_LPAREN,
       anon_sym_RPAREN,
-  [18] = 1,
-    ACTIONS(29), 2,
-      ts_builtin_sym_end,
-      anon_sym_LPAREN,
-  [23] = 1,
-    ACTIONS(31), 2,
+  [55] = 1,
+    ACTIONS(34), 3,
+      sym__identifier,
       anon_sym_LPAREN,
       anon_sym_RPAREN,
-  [28] = 1,
-    ACTIONS(33), 1,
+  [61] = 1,
+    ACTIONS(36), 3,
+      sym__identifier,
+      anon_sym_LPAREN,
+      anon_sym_RPAREN,
+  [67] = 3,
+    ACTIONS(5), 1,
+      anon_sym_LPAREN,
+    STATE(7), 1,
+      sym_named_node,
+    STATE(13), 1,
+      sym__pattern,
+  [77] = 1,
+    ACTIONS(38), 3,
+      sym__identifier,
+      anon_sym_LPAREN,
+      anon_sym_RPAREN,
+  [83] = 2,
+    ACTIONS(40), 1,
+      sym__identifier,
+    STATE(2), 1,
       sym_node_name,
-  [32] = 1,
-    ACTIONS(35), 1,
+  [90] = 1,
+    ACTIONS(42), 2,
       ts_builtin_sym_end,
+      anon_sym_LPAREN,
+  [95] = 1,
+    ACTIONS(44), 1,
+      ts_builtin_sym_end,
+  [99] = 1,
+    ACTIONS(46), 1,
+      anon_sym_COLON,
+  [103] = 1,
+    ACTIONS(48), 1,
+      anon_sym_COLON,
 };
 
 static uint32_t ts_small_parse_table_map[] = {
-  [SMALL_STATE(7)] = 0,
-  [SMALL_STATE(8)] = 6,
-  [SMALL_STATE(9)] = 12,
-  [SMALL_STATE(10)] = 18,
-  [SMALL_STATE(11)] = 23,
-  [SMALL_STATE(12)] = 28,
-  [SMALL_STATE(13)] = 32,
+  [SMALL_STATE(5)] = 0,
+  [SMALL_STATE(6)] = 17,
+  [SMALL_STATE(7)] = 34,
+  [SMALL_STATE(8)] = 41,
+  [SMALL_STATE(9)] = 48,
+  [SMALL_STATE(10)] = 55,
+  [SMALL_STATE(11)] = 61,
+  [SMALL_STATE(12)] = 67,
+  [SMALL_STATE(13)] = 77,
+  [SMALL_STATE(14)] = 83,
+  [SMALL_STATE(15)] = 90,
+  [SMALL_STATE(16)] = 95,
+  [SMALL_STATE(17)] = 99,
+  [SMALL_STATE(18)] = 103,
 };
 
 static TSParseActionEntry ts_parse_actions[] = {
   [0] = {.entry = {.count = 0, .reusable = false}},
   [1] = {.entry = {.count = 1, .reusable = false}}, RECOVER(),
   [3] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_query, 0),
-  [5] = {.entry = {.count = 1, .reusable = true}}, SHIFT(12),
-  [7] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_query, 1),
+  [5] = {.entry = {.count = 1, .reusable = true}}, SHIFT(14),
+  [7] = {.entry = {.count = 1, .reusable = true}}, SHIFT(17),
   [9] = {.entry = {.count = 1, .reusable = true}}, SHIFT(8),
-  [11] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_query_repeat1, 2),
-  [13] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_query_repeat1, 2), SHIFT_REPEAT(12),
-  [16] = {.entry = {.count = 1, .reusable = true}}, SHIFT(9),
-  [18] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_named_node_repeat1, 2), SHIFT_REPEAT(12),
-  [21] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_named_node_repeat1, 2),
-  [23] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym__pattern, 1, .production_id = 2),
-  [25] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_named_node, 3),
-  [27] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_named_node, 4),
-  [29] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_pattern, 1, .production_id = 1),
-  [31] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_child, 1, .production_id = 1),
-  [33] = {.entry = {.count = 1, .reusable = true}}, SHIFT(3),
-  [35] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
+  [11] = {.entry = {.count = 1, .reusable = true}}, SHIFT(9),
+  [13] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_named_node_repeat1, 2), SHIFT_REPEAT(17),
+  [16] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_named_node_repeat1, 2), SHIFT_REPEAT(14),
+  [19] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_named_node_repeat1, 2),
+  [21] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_query, 1),
+  [23] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_query_repeat1, 2),
+  [25] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_query_repeat1, 2), SHIFT_REPEAT(14),
+  [28] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym__pattern, 1, .production_id = 2),
+  [30] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_named_node, 3),
+  [32] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_named_node, 4),
+  [34] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_node_name, 1),
+  [36] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_child, 1, .production_id = 1),
+  [38] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_child, 3, .production_id = 3),
+  [40] = {.entry = {.count = 1, .reusable = true}}, SHIFT(10),
+  [42] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_pattern, 1, .production_id = 1),
+  [44] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
+  [46] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_field_name, 1),
+  [48] = {.entry = {.count = 1, .reusable = true}}, SHIFT(12),
 };
 
 #ifdef __cplusplus
@@ -360,7 +450,7 @@ extern const TSLanguage *tree_sitter_tsq(void) {
     .lex_modes = ts_lex_modes,
     .lex_fn = ts_lex,
     .keyword_lex_fn = ts_lex_keywords,
-    .keyword_capture_token = sym_node_name,
+    .keyword_capture_token = sym__identifier,
   };
   return &language;
 }

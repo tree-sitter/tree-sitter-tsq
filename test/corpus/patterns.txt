@@ -42,6 +42,78 @@ Named node with two children
       (child pattern: (named_node (node_name))))))
 
 
+=========================
+Named node with one field
+=========================
+
+(binary_expression field: (string_literal))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child
+        (field_name)
+        pattern: (named_node (node_name))))))
+
+
+==========================
+Named node with two fields
+==========================
+
+(binary_expression field: (string_literal) another: (number_literal))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child
+        (field_name)
+        pattern: (named_node (node_name)))
+      (child
+        (field_name)
+        pattern: (named_node (node_name))))))
+
+
+==================================
+Named node with leading underscore
+==================================
+
+(_binary_expression)
+
+---
+
+(query
+  (pattern pattern: (named_node (node_name))))
+
+
+=============
+Nested fields
+=============
+
+(assignment_expression
+  left: (member_expression
+    object: (call_expression)))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child
+        (field_name)
+        pattern: (named_node
+          (node_name)
+          (child
+            (field_name)
+            pattern: (named_node (node_name))))))))
+
+
 =================
 Multiple patterns
 =================

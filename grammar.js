@@ -1,7 +1,7 @@
 module.exports = grammar({
   name: 'tsq',
 
-  word: $ => $.node_name,
+  word: $ => $._identifier,
 
   rules: {
     query: $ => repeat($.pattern),
@@ -11,7 +11,7 @@ module.exports = grammar({
       $.named_node,
     )),
 
-    node_name: $ => /[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
+    _identifier: $ => /[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
 
     named_node: $ => seq(
       '(',
@@ -20,6 +20,13 @@ module.exports = grammar({
       ')',
     ),
 
-    child: $ => $._pattern,
+    node_name: $ => $._identifier,
+
+    child: $ => seq(
+      optional(seq($.field_name, ':')),
+      $._pattern,
+    ),
+
+    field_name: $ => $._identifier,
   }
 });

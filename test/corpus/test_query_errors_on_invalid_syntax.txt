@@ -11,6 +11,26 @@ Simple pattern
     pattern: (named_node (node_name))))
 
 
+==============
+Nested pattern
+==============
+
+(if_statement condition:(parenthesized_expression (identifier)))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child
+        (field_name)
+        pattern: (named_node
+          (node_name)
+          (child
+            pattern: (named_node (node_name))))))))
+
+
 =================
 Mismatched parens
 =================
@@ -35,7 +55,7 @@ Bare identifier missing colon
 
 (query
   (pattern
-    pattern: (named_node (node_name) (ERROR (node_name)))))
+    pattern: (named_node (node_name) (ERROR (field_name)))))
 
 
 ================================
@@ -47,8 +67,8 @@ Field name missing child pattern
 ---
 
 (query
-  (pattern
-    pattern: (named_node (node_name) (ERROR (node_name) (UNEXPECTED ':')))))
+  (pattern pattern:
+    (named_node (node_name) (ERROR (field_name)))))
 
 
 ===================
@@ -63,4 +83,5 @@ Missing close paren
   (ERROR)
   (pattern
     pattern: (named_node (node_name)))
-  (ERROR))
+  (pattern
+    pattern: (named_node (node_name (MISSING _identifier)))))

@@ -13,7 +13,22 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "field_name",
+          "named": true
+        }
+      ]
     }
+  },
+  {
+    "type": "field_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "named_node",
@@ -33,6 +48,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "node_name",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "pattern",
@@ -74,7 +94,7 @@
     "named": false
   },
   {
-    "type": "node_name",
-    "named": true
+    "type": ":",
+    "named": false
   }
 ]
