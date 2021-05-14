@@ -22,6 +22,10 @@
           {
             "type": "SYMBOL",
             "name": "named_node"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "wildcard_node"
           }
         ]
       }
@@ -91,6 +95,32 @@
     "field_name": {
       "type": "SYMBOL",
       "name": "_identifier"
+    },
+    "wildcard_node": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "_"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "STRING",
+              "value": "_"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        }
+      ]
     }
   },
   "extras": [

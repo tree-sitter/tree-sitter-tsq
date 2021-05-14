@@ -114,11 +114,25 @@ Nested fields
             pattern: (named_node (node_name))))))))
 
 
+=============
+Wildcard node
+=============
+
+(_)
+
+---
+
+(query
+  (pattern pattern:
+    (wildcard_node)))
+
+
 =================
 Multiple patterns
 =================
 
 (binary_expression (string_literal))
+_
 (binary_expression (string_literal) (number_literal))
 
 ---
@@ -128,6 +142,7 @@ Multiple patterns
     pattern: (named_node
       (node_name)
       (child pattern: (named_node (node_name)))))
+  (pattern pattern: (wildcard_node))
   (pattern
     pattern: (named_node
       (node_name)

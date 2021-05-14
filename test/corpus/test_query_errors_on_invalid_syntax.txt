@@ -68,7 +68,10 @@ Field name missing child pattern
 
 (query
   (pattern pattern:
-    (named_node (node_name) (ERROR (field_name)))))
+    (named_node (node_name)
+      (child
+        (field_name)
+        pattern: (wildcard_node (MISSING "_"))))))
 
 
 ===================
