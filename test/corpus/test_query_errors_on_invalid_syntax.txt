@@ -1,0 +1,66 @@
+==============
+Simple pattern
+==============
+
+(if_statement)
+
+---
+
+(query
+  (pattern
+    pattern: (named_node (node_name))))
+
+
+=================
+Mismatched parens
+=================
+
+
+(if_statement
+
+---
+
+(query
+  (pattern
+    pattern: (named_node (node_name) (MISSING ")"))))
+
+
+=============================
+Bare identifier missing colon
+=============================
+
+(if_statement identifier)
+
+---
+
+(query
+  (pattern
+    pattern: (named_node (node_name) (ERROR (node_name)))))
+
+
+================================
+Field name missing child pattern
+================================
+
+(if_statement condition:)
+
+---
+
+(query
+  (pattern
+    pattern: (named_node (node_name) (ERROR (node_name) (UNEXPECTED ':')))))
+
+
+===================
+Missing close paren
+===================
+
+((identifier) ()
+
+---
+
+(query
+  (ERROR)
+  (pattern
+    pattern: (named_node (node_name)))
+  (ERROR))

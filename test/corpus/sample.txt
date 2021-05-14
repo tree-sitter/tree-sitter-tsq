@@ -1,9 +1,0 @@
-==============
-This is a test
-==============
-
-hello
-
----
-
-(source_file)

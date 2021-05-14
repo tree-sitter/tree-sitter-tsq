@@ -1,9 +1,62 @@
 {
   "name": "tsq",
+  "word": "node_name",
   "rules": {
-    "source_file": {
-      "type": "STRING",
-      "value": "hello"
+    "query": {
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "pattern"
+      }
+    },
+    "pattern": {
+      "type": "SYMBOL",
+      "name": "_pattern"
+    },
+    "_pattern": {
+      "type": "FIELD",
+      "name": "pattern",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "named_node"
+          }
+        ]
+      }
+    },
+    "node_name": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*"
+    },
+    "named_node": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "node_name"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "child"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "child": {
+      "type": "SYMBOL",
+      "name": "_pattern"
     }
   },
   "extras": [

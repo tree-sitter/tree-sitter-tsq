@@ -1,0 +1,63 @@
+===========================
+Named node with no children
+===========================
+
+(binary_expression)
+
+---
+
+(query
+  (pattern
+    pattern: (named_node (node_name))))
+
+
+=========================
+Named node with one child
+=========================
+
+(binary_expression (string_literal))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child pattern: (named_node (node_name))))))
+
+
+============================
+Named node with two children
+============================
+
+(binary_expression (string_literal) (number_literal))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child pattern: (named_node (node_name)))
+      (child pattern: (named_node (node_name))))))
+
+
+=================
+Multiple patterns
+=================
+
+(binary_expression (string_literal))
+(binary_expression (string_literal) (number_literal))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child pattern: (named_node (node_name)))))
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child pattern: (named_node (node_name)))
+      (child pattern: (named_node (node_name))))))
