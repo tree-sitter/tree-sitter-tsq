@@ -1,3 +1,34 @@
+==============
+Anonymous leaf
+==============
+
+"test"
+
+---
+
+(query
+  (pattern
+    pattern: (anonymous_leaf)))
+
+
+=================================
+Escape sequence in anonymous leaf
+=================================
+
+"hello\nworld\rhow\tare\0you\\"
+
+---
+
+(query
+  (pattern
+    pattern: (anonymous_leaf
+      (escape_sequence)
+      (escape_sequence)
+      (escape_sequence)
+      (escape_sequence)
+      (escape_sequence))))
+
+
 ===========================
 Named node with no children
 ===========================

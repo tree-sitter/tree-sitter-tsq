@@ -88,3 +88,14 @@ Missing close paren
     pattern: (named_node (node_name)))
   (pattern
     pattern: (named_node (node_name (MISSING _identifier)))))
+
+
+=======================
+Unclosed anonymous leaf
+=======================
+
+(identifier "h
+
+---
+
+(ERROR (node_name))

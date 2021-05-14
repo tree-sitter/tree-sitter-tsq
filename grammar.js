@@ -8,8 +8,23 @@ module.exports = grammar({
     pattern: $ => $._pattern,
 
     _pattern: $ => field('pattern', choice(
+      $.anonymous_leaf,
       $.named_node,
       $.wildcard_node,
+    )),
+
+    anonymous_leaf: $ => seq(
+      '"',
+      repeat(choice(
+        token.immediate(prec(1, /[^"\n\\]+/)),
+        $.escape_sequence
+      )),
+      '"',
+    ),
+
+    escape_sequence: $ => token.immediate(seq(
+      '\\',
+      choice('n', 'r', 't', '0', '\\'),
     )),
 
     _identifier: $ => /[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
