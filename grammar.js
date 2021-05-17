@@ -1,11 +1,14 @@
 module.exports = grammar({
   name: 'tsq',
 
+  extras: $ => [/\s/, $.comment],
   word: $ => $._identifier,
 
   rules: {
     query: $ => repeat($.pattern),
     pattern: $ => $._pattern,
+
+    comment: $ => token(seq(';', /.*/)),
 
     _pattern: $ => field('pattern', choice(
       $.anonymous_leaf,

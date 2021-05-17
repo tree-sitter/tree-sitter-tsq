@@ -31,9 +31,9 @@ Nested pattern
             pattern: (named_node (node_name))))))))
 
 
-=================
-Mismatched parens
-=================
+=====================
+Mismatched open paren
+=====================
 
 
 (if_statement
@@ -43,6 +43,24 @@ Mismatched parens
 (query
   (pattern
     pattern: (named_node (node_name) (MISSING ")"))))
+
+
+===================================
+Mismatched close paren with comment
+===================================
+
+
+; comment 1
+; comment 2
+(if_statement))
+
+---
+
+(query
+  (comment)
+  (comment)
+  (pattern pattern: (named_node (node_name)))
+  (ERROR))
 
 
 =============================

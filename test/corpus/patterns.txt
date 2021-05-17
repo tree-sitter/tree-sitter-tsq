@@ -216,3 +216,26 @@ _
       (node_name)
       (child pattern: (named_node (node_name)))
       (child pattern: (named_node (node_name))))))
+
+
+========
+Comments
+========
+
+; comment
+(binary_expression
+; comment
+  field: (string_literal) ; comment
+  another: (number_literal))
+
+---
+
+(query
+  (comment)
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (comment)
+      (child (field_name) pattern: (named_node (node_name)))
+      (comment)
+      (child (field_name) pattern: (named_node (node_name))))))
