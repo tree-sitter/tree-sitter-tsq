@@ -30,25 +30,46 @@
       }
     },
     "_pattern": {
-      "type": "FIELD",
-      "name": "pattern",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "anonymous_leaf"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "named_node"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "wildcard_node"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "pattern",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "anonymous_leaf"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "named_node"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "wildcard_node"
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "capture"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "capture": {
+      "type": "PATTERN",
+      "value": "@[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*"
     },
     "anonymous_leaf": {
       "type": "SEQ",

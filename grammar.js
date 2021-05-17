@@ -10,11 +10,16 @@ module.exports = grammar({
 
     comment: $ => token(seq(';', /.*/)),
 
-    _pattern: $ => field('pattern', choice(
-      $.anonymous_leaf,
-      $.named_node,
-      $.wildcard_node,
-    )),
+    _pattern: $ => seq(
+      field('pattern', choice(
+        $.anonymous_leaf,
+        $.named_node,
+        $.wildcard_node,
+      )),
+      optional($.capture),
+    ),
+
+    capture: $ => /@[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
 
     anonymous_leaf: $ => seq(
       '"',

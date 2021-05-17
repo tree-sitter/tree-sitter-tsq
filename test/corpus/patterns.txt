@@ -42,6 +42,18 @@ Named node with no children
     pattern: (named_node (node_name))))
 
 
+====================================
+Captured named node with no children
+====================================
+
+(binary_expression) @result
+
+---
+
+(query
+  (pattern pattern: (named_node (node_name)) (capture)))
+
+
 =========================
 Named node with one child
 =========================
@@ -71,6 +83,23 @@ Named node with two children
       (node_name)
       (child pattern: (named_node (node_name)))
       (child pattern: (named_node (node_name))))))
+
+
+=====================================
+Captured named node with two children
+=====================================
+
+(binary_expression (string_literal) @str (number_literal) @num) @bin
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child pattern: (named_node (node_name)) (capture))
+      (child pattern: (named_node (node_name)) (capture)))
+    (capture)))
 
 
 =========================

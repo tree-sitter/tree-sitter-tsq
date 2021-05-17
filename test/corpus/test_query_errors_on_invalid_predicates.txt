@@ -1,0 +1,12 @@
+====================
+Capture with no node
+====================
+
+((identifier) @id (@id))
+
+---
+
+(query
+  (ERROR)
+  (pattern pattern: (named_node (node_name)) (capture))
+  (ERROR (capture)))

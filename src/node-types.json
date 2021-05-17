@@ -38,9 +38,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "capture",
+          "named": true
+        },
         {
           "type": "field_name",
           "named": true
@@ -118,6 +122,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "capture",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -163,6 +177,10 @@
   {
     "type": "_",
     "named": false
+  },
+  {
+    "type": "capture",
+    "named": true
   },
   {
     "type": "comment",
