@@ -122,6 +122,43 @@ Named node with leading underscore
   (pattern pattern: (named_node (node_name))))
 
 
+==============
+Negated fields
+==============
+
+(assignment_expression !left)
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (negated_child (field_name)))))
+
+
+==============================
+Negated and non-negated fields
+==============================
+
+(assignment_expression
+  !left
+  right: (identifier)
+  !center
+  "bottom")
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (negated_child (field_name))
+      (child (field_name) pattern: (named_node (node_name)))
+      (negated_child (field_name))
+      (child pattern: (anonymous_leaf)))))
+
+
 =============
 Nested fields
 =============

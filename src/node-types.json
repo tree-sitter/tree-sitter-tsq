@@ -66,7 +66,26 @@
           "named": true
         },
         {
+          "type": "negated_child",
+          "named": true
+        },
+        {
           "type": "node_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "negated_child",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "field_name",
           "named": true
         }
       ]
@@ -120,6 +139,10 @@
     "type": "wildcard_node",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "!",
+    "named": false
   },
   {
     "type": "\"",

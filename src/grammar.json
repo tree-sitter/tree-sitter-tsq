@@ -125,8 +125,17 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "child"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "child"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "negated_child"
+              }
+            ]
           }
         },
         {
@@ -172,6 +181,19 @@
     "field_name": {
       "type": "SYMBOL",
       "name": "_identifier"
+    },
+    "negated_child": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "!"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field_name"
+        }
+      ]
     },
     "wildcard_node": {
       "type": "CHOICE",

@@ -32,7 +32,7 @@ module.exports = grammar({
     named_node: $ => seq(
       '(',
       $.node_name,
-      repeat($.child),
+      repeat(choice($.child, $.negated_child)),
       ')',
     ),
 
@@ -44,6 +44,8 @@ module.exports = grammar({
     ),
 
     field_name: $ => $._identifier,
+
+    negated_child: $ => seq('!', $.field_name),
 
     wildcard_node: $ => choice('_', seq('(', '_', ')')),
   }

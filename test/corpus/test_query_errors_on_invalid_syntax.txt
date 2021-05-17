@@ -99,3 +99,19 @@ Unclosed anonymous leaf
 ---
 
 (ERROR (node_name))
+
+
+==========================
+Missing negated field name
+==========================
+
+(statement_block ! (if_statement))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (ERROR)
+      (child pattern: (named_node (node_name))))))
