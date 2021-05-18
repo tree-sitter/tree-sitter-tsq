@@ -58,6 +58,24 @@
             "named": true
           }
         ]
+      },
+      "quantifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "one_or_more",
+            "named": true
+          },
+          {
+            "type": "zero_or_more",
+            "named": true
+          },
+          {
+            "type": "zero_or_one",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -101,6 +119,24 @@
           },
           {
             "type": "wildcard_node",
+            "named": true
+          }
+        ]
+      },
+      "quantifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "one_or_more",
+            "named": true
+          },
+          {
+            "type": "zero_or_more",
+            "named": true
+          },
+          {
+            "type": "zero_or_one",
             "named": true
           }
         ]
@@ -209,6 +245,24 @@
             "named": true
           }
         ]
+      },
+      "quantifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "one_or_more",
+            "named": true
+          },
+          {
+            "type": "zero_or_more",
+            "named": true
+          },
+          {
+            "type": "zero_or_one",
+            "named": true
+          }
+        ]
       }
     },
     "children": {
@@ -284,6 +338,18 @@
   },
   {
     "type": "escape_sequence",
+    "named": true
+  },
+  {
+    "type": "one_or_more",
+    "named": true
+  },
+  {
+    "type": "zero_or_more",
+    "named": true
+  },
+  {
+    "type": "zero_or_one",
     "named": true
   }
 ]

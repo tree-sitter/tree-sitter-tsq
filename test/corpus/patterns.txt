@@ -136,6 +136,28 @@ Group
       (pattern pattern: (named_node (node_name))))))
 
 
+=====================
+Group with quantifier
+=====================
+
+(
+  (number)
+  ("," (number))*
+)
+
+---
+
+(query
+  (pattern
+    pattern: (group
+      (pattern pattern: (named_node (node_name)))
+      (pattern
+        pattern: (group
+          (pattern pattern: (anonymous_leaf))
+          (pattern pattern: (named_node (node_name))))
+        quantifier: (zero_or_more)))))
+
+
 ===========================
 Named node with no children
 ===========================
@@ -316,6 +338,69 @@ Nested fields
           (child
             (field_name)
             pattern: (named_node (node_name))))))))
+
+
+=======================
+Quantifier: One or more
+=======================
+
+(comment)+
+
+---
+
+(query
+  (pattern
+    pattern: (named_node (node_name))
+    quantifier: (one_or_more)))
+
+
+=======================
+Quantifier: Zero or one
+=======================
+
+(call_expression
+  function: (identifier) @the-function
+  arguments: (arguments (string)? @the-string-arg))
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child (field_name) pattern: (named_node (node_name)) (capture))
+      (child
+        (field_name)
+        pattern: (named_node
+          (node_name)
+          (child
+            pattern: (named_node (node_name))
+            quantifier: (zero_or_one)
+            (capture)))))))
+
+
+========================
+Quantifier: Zero or more
+========================
+
+(class_declaration
+  (decorator)* @the-decorator
+  name: (identifier) @the-name)
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child
+        pattern: (named_node (node_name))
+        quantifier: (zero_or_more)
+        (capture))
+      (child
+        (field_name)
+        pattern: (named_node (node_name))
+        (capture)))))
 
 
 =============

@@ -65,6 +65,22 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "FIELD",
+              "name": "quantifier",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_quantifier"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SYMBOL",
               "name": "capture"
             },
@@ -74,6 +90,35 @@
           ]
         }
       ]
+    },
+    "_quantifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "one_or_more"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "zero_or_one"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "zero_or_more"
+        }
+      ]
+    },
+    "one_or_more": {
+      "type": "STRING",
+      "value": "+"
+    },
+    "zero_or_one": {
+      "type": "STRING",
+      "value": "?"
+    },
+    "zero_or_more": {
+      "type": "STRING",
+      "value": "*"
     },
     "capture": {
       "type": "PATTERN",

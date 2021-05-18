@@ -18,8 +18,18 @@ module.exports = grammar({
         $.named_node,
         $.wildcard_node,
       )),
+      optional(field('quantifier', $._quantifier)),
       optional($.capture),
     ),
+
+    _quantifier: $ => choice(
+      $.one_or_more,
+      $.zero_or_one,
+      $.zero_or_more,
+    ),
+    one_or_more: $ => '+',
+    zero_or_one: $ => '?',
+    zero_or_more: $ => '*',
 
     capture: $ => /@[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
 
