@@ -12,6 +12,7 @@ module.exports = grammar({
 
     _pattern: $ => seq(
       field('pattern', choice(
+        $.alternation,
         $.anonymous_leaf,
         $.named_node,
         $.wildcard_node,
@@ -20,6 +21,9 @@ module.exports = grammar({
     ),
 
     capture: $ => /@[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
+
+    alternation: $ => seq('[', repeat1($.choice), ']'),
+    choice: $ => $._pattern,
 
     anonymous_leaf: $ => seq(
       '"',

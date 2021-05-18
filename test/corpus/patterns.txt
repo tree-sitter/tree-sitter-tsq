@@ -1,3 +1,92 @@
+===========
+Alternation
+===========
+
+[
+  (binary_expression (string_literal))
+  _
+  (binary_expression (string_literal) (number_literal))
+]
+
+---
+
+(query
+  (pattern
+    pattern: (alternation
+      (choice pattern: (named_node
+        (node_name)
+        (child pattern: (named_node (node_name)))))
+      (choice pattern: (wildcard_node))
+      (choice pattern: (named_node
+        (node_name)
+        (child pattern: (named_node (node_name)))
+        (child pattern: (named_node (node_name))))))))
+
+
+====================
+Alternation keywords
+====================
+
+[
+  "break"
+  "catch"
+  "delete"
+  "else"
+  "for"
+  "function"
+  "if"
+  "return"
+  "try"
+  "while"
+] @keyword
+
+---
+
+(query
+  (pattern
+    pattern: (alternation
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf))
+      (choice pattern: (anonymous_leaf)))
+    (capture)))
+
+
+===========================
+Alternation call expression
+===========================
+
+(call_expression
+  function: [
+    (identifier) @function
+    (member_expression
+      property: (property_identifier) @method)
+  ])
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child
+        (field_name)
+        pattern: (alternation
+          (choice pattern: (named_node (node_name)) (capture))
+          (choice pattern: (named_node
+            (node_name)
+            (child
+              (field_name)
+              pattern: (named_node (node_name))
+              (capture)))))))))
+
+
 ==============
 Anonymous leaf
 ==============

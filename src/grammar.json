@@ -40,6 +40,10 @@
             "members": [
               {
                 "type": "SYMBOL",
+                "name": "alternation"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "anonymous_leaf"
               },
               {
@@ -70,6 +74,30 @@
     "capture": {
       "type": "PATTERN",
       "value": "@[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*"
+    },
+    "alternation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "choice"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "choice": {
+      "type": "SYMBOL",
+      "name": "_pattern"
     },
     "anonymous_leaf": {
       "type": "SEQ",

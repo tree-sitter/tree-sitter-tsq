@@ -1,5 +1,20 @@
 [
   {
+    "type": "alternation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "choice",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "anonymous_leaf",
     "named": true,
     "fields": {},
@@ -22,6 +37,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "alternation",
+            "named": true
+          },
           {
             "type": "anonymous_leaf",
             "named": true
@@ -47,6 +66,44 @@
         },
         {
           "type": "field_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "choice",
+    "named": true,
+    "fields": {
+      "pattern": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "alternation",
+            "named": true
+          },
+          {
+            "type": "anonymous_leaf",
+            "named": true
+          },
+          {
+            "type": "named_node",
+            "named": true
+          },
+          {
+            "type": "wildcard_node",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "capture",
           "named": true
         }
       ]
@@ -108,6 +165,10 @@
         "multiple": false,
         "required": true,
         "types": [
+          {
+            "type": "alternation",
+            "named": true
+          },
           {
             "type": "anonymous_leaf",
             "named": true
@@ -172,6 +233,14 @@
   },
   {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {

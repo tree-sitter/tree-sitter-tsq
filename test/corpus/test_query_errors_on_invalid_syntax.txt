@@ -108,6 +108,20 @@ Missing close paren
     pattern: (named_node (node_name (MISSING _identifier)))))
 
 
+=================
+Empty alternation
+=================
+
+((identifier) [])
+
+---
+
+(query
+  (ERROR)
+  (pattern pattern: (named_node (node_name)))
+  (ERROR))
+
+
 =======================
 Unclosed anonymous leaf
 =======================
@@ -133,3 +147,21 @@ Missing negated field name
       (node_name)
       (ERROR)
       (child pattern: (named_node (node_name))))))
+
+
+===============
+tree-sitter#968
+===============
+
+(parameter_list [ ")" @foo)
+
+---
+
+(query
+  (pattern
+    pattern: (named_node
+      (node_name)
+      (child pattern:
+        (alternation
+          (choice pattern: (anonymous_leaf) (capture))
+          (MISSING "]"))))))
