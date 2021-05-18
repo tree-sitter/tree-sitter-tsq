@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-tsq",
-  "version": "0.1.0",
+  "version": "0.19.0",
   "description": "tree-sitter parser for tree-sitter's query language",
   "main": "bindings/node",
   "keywords": [
