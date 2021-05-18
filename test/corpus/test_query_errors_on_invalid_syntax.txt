@@ -101,11 +101,10 @@ Missing close paren
 ---
 
 (query
-  (ERROR)
   (pattern
-    pattern: (named_node (node_name)))
-  (pattern
-    pattern: (named_node (node_name (MISSING _identifier)))))
+    pattern: (group
+      (pattern pattern: (named_node (node_name)))
+      (ERROR))))
 
 
 =================
@@ -117,9 +116,12 @@ Empty alternation
 ---
 
 (query
-  (ERROR)
-  (pattern pattern: (named_node (node_name)))
-  (ERROR))
+  (pattern
+    pattern: (group
+      (pattern pattern: (named_node (node_name)))
+      (pattern
+        pattern: (alternation
+          (choice pattern: (wildcard_node (MISSING "_"))))))))
 
 
 =======================

@@ -46,6 +46,10 @@
             "named": true
           },
           {
+            "type": "group",
+            "named": true
+          },
+          {
             "type": "named_node",
             "named": true
           },
@@ -88,6 +92,10 @@
             "named": true
           },
           {
+            "type": "group",
+            "named": true
+          },
+          {
             "type": "named_node",
             "named": true
           },
@@ -113,6 +121,21 @@
     "type": "field_name",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "pattern",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "named_node",
@@ -171,6 +194,10 @@
           },
           {
             "type": "anonymous_leaf",
+            "named": true
+          },
+          {
+            "type": "group",
             "named": true
           },
           {

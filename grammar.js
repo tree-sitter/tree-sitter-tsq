@@ -14,6 +14,7 @@ module.exports = grammar({
       field('pattern', choice(
         $.alternation,
         $.anonymous_leaf,
+        $.group,
         $.named_node,
         $.wildcard_node,
       )),
@@ -41,6 +42,8 @@ module.exports = grammar({
 
     _identifier: $ => /[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
 
+    group: $ => seq('(', repeat1($.pattern), ')'),
+
     named_node: $ => seq(
       '(',
       $.node_name,
@@ -59,6 +62,6 @@ module.exports = grammar({
 
     negated_child: $ => seq('!', $.field_name),
 
-    wildcard_node: $ => choice('_', seq('(', '_', ')')),
+    wildcard_node: $ => prec.right(choice('_', seq('(', '_', ')'))),
   }
 });

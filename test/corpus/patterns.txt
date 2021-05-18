@@ -118,6 +118,24 @@ Escape sequence in anonymous leaf
       (escape_sequence))))
 
 
+=====
+Group
+=====
+
+(
+  (comment)
+  (function_declaration)
+)
+
+---
+
+(query
+  (pattern
+    pattern: (group
+      (pattern pattern: (named_node (node_name)))
+      (pattern pattern: (named_node (node_name))))))
+
+
 ===========================
 Named node with no children
 ===========================
