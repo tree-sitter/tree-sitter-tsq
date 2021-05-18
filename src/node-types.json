@@ -10,6 +10,10 @@
         {
           "type": "choice",
           "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
         }
       ]
     }
@@ -169,6 +173,10 @@
         {
           "type": "pattern",
           "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
         }
       ]
     }
@@ -195,6 +203,10 @@
         },
         {
           "type": "node_name",
+          "named": true
+        },
+        {
+          "type": "predicate",
           "named": true
         }
       ]
@@ -281,6 +293,29 @@
     }
   },
   {
+    "type": "predicate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "predicate_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "query",
     "named": true,
     "fields": {},
@@ -290,6 +325,25 @@
       "types": [
         {
           "type": "pattern",
+          "named": true
+        },
+        {
+          "type": "predicate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
           "named": true
         }
       ]
@@ -350,6 +404,10 @@
   },
   {
     "type": "one_or_more",
+    "named": true
+  },
+  {
+    "type": "predicate_name",
     "named": true
   },
   {

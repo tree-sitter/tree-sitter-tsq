@@ -124,6 +124,36 @@ Empty alternation
           (choice pattern: (wildcard_node (MISSING "_"))))))))
 
 
+==============================
+Unclosed paren after predicate
+==============================
+
+((identifier) (#a)
+
+---
+
+(query
+  (pattern pattern:
+    (group
+      (pattern pattern: (named_node (node_name)))
+      (predicate (predicate_name))
+      (MISSING ")"))))
+
+
+===========================
+Unclosed paren in predicate
+===========================
+
+((identifier) @x (#eq? @x a
+
+---
+
+(query
+  (ERROR
+    (pattern pattern: (named_node (node_name)) (capture))
+    (predicate_name) (capture)))
+
+
 =======================
 Unclosed anonymous leaf
 =======================

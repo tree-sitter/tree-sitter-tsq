@@ -5,7 +5,7 @@ module.exports = grammar({
   word: $ => $._identifier,
 
   rules: {
-    query: $ => repeat($.pattern),
+    query: $ => repeat(choice($.pattern, $.predicate)),
     pattern: $ => $._pattern,
 
     comment: $ => token(seq(';', /.*/)),
@@ -33,10 +33,12 @@ module.exports = grammar({
 
     capture: $ => /@[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
 
-    alternation: $ => seq('[', repeat1($.choice), ']'),
+    alternation: $ => seq('[', repeat1(choice($.choice, $.predicate)), ']'),
     choice: $ => $._pattern,
 
-    anonymous_leaf: $ => seq(
+    anonymous_leaf: $ => $._string,
+
+    _string: $ => seq(
       '"',
       repeat(choice(
         token.immediate(prec(1, /[^"\n\\]+/)),
@@ -52,7 +54,7 @@ module.exports = grammar({
 
     _identifier: $ => /[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
 
-    group: $ => seq('(', repeat1($.pattern), ')'),
+    group: $ => seq('(', repeat1(choice($.pattern, $.predicate)), ')'),
 
     named_node: $ => seq(
       '(',
@@ -60,7 +62,7 @@ module.exports = grammar({
       optional(seq(
         repeat1(seq(
           optional($.anchor),
-          choice($.child, $.negated_child),
+          choice($.child, $.negated_child, $.predicate),
         )),
         optional($.anchor),
       )),
@@ -79,6 +81,16 @@ module.exports = grammar({
     field_name: $ => $._identifier,
 
     negated_child: $ => seq('!', $.field_name),
+
+    predicate: $ => seq(
+      '(',
+      $.predicate_name,
+      repeat(choice($.capture, $.string)),
+      ')',
+    ),
+
+    predicate_name: $ => /#[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
+    string: $ => $._string,
 
     wildcard_node: $ => prec.right(choice('_', seq('(', '_', ')'))),
   }

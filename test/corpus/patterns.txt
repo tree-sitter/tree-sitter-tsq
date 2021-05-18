@@ -392,6 +392,48 @@ Nested fields
             pattern: (named_node (node_name))))))))
 
 
+=============
+Predicate: eq
+=============
+
+(
+  (pair
+    key: (property_identifier) @key-name
+    value: (identifier) @value-name)
+  (#eq? @key-name @value-name)
+)
+
+---
+
+(query
+  (pattern
+    pattern: (group
+      (pattern
+        pattern: (named_node
+          (node_name)
+          (child (field_name) pattern: (named_node (node_name)) (capture))
+          (child (field_name) pattern: (named_node (node_name)) (capture))))
+      (predicate (predicate_name) (capture) (capture)))))
+
+
+================
+Predicate: match
+================
+
+(
+  (identifier) @constant
+  (#match? @constant "^[A-Z][A-Z_]+")
+)
+
+---
+
+(query
+  (pattern pattern:
+    (group
+      (pattern pattern: (named_node (node_name)) (capture))
+      (predicate (predicate_name) (capture) (string)))))
+
+
 =======================
 Quantifier: One or more
 =======================
