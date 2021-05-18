@@ -182,6 +182,10 @@
       "required": true,
       "types": [
         {
+          "type": "anchor",
+          "named": true
+        },
+        {
           "type": "child",
           "named": true
         },
@@ -327,6 +331,10 @@
   {
     "type": "_",
     "named": false
+  },
+  {
+    "type": "anchor",
+    "named": true
   },
   {
     "type": "capture",

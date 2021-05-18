@@ -135,6 +135,21 @@ Unclosed anonymous leaf
 (ERROR (node_name))
 
 
+===============================================
+Need at least one child node for a child anchor
+===============================================
+
+(statement_block .)
+
+---
+
+(query
+  (pattern pattern:
+    (named_node
+      (node_name)
+      (ERROR (anchor)))))
+
+
 ==========================
 Missing negated field name
 ==========================

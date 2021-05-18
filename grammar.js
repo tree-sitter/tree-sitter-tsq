@@ -57,11 +57,19 @@ module.exports = grammar({
     named_node: $ => seq(
       '(',
       $.node_name,
-      repeat(choice($.child, $.negated_child)),
+      optional(seq(
+        repeat1(seq(
+          optional($.anchor),
+          choice($.child, $.negated_child),
+        )),
+        optional($.anchor),
+      )),
       ')',
     ),
 
     node_name: $ => $._identifier,
+
+    anchor: $ => '.',
 
     child: $ => seq(
       optional(seq($.field_name, ':')),
