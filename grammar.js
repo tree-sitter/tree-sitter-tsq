@@ -49,7 +49,7 @@ module.exports = grammar({
 
     escape_sequence: $ => token.immediate(seq(
       '\\',
-      choice('n', 'r', 't', '0', '\\'),
+      choice('n', 'r', 't', '0', '\\', '"'),
     )),
 
     _identifier: $ => /[a-zA-Z0-9_-][a-zA-Z0-9.?!_-]*/,
