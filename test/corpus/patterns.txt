@@ -554,3 +554,22 @@ Comments
       (child (field_name) pattern: (named_node (node_name)))
       (comment)
       (child (field_name) pattern: (named_node (node_name))))))
+
+==============
+String escapes
+==============
+
+["\"" (attribute_name)] @string
+
+---
+
+(query
+  (pattern
+    pattern: (alternation
+      (choice
+        pattern: (anonymous_leaf
+          (escape_sequence)))
+      (choice
+        pattern: (named_node
+          (node_name))))
+        (capture)))
